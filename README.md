@@ -6,10 +6,6 @@
   </a>
 </p>
 
-<p align="center">
-<a href="https://www.npmjs.com/package/@dodoex/widgets"><img src="https://img.shields.io/npm/v/@dodoex/widgets" alt="npm version" /></a>
-<p>
-
 DODO developer platform configuration widget corresponding to the displayed project
 
 ## Configuration
