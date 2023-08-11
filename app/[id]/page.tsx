@@ -113,6 +113,7 @@ export default async function Page(props: {
   const locale = configTokenList?.basis?.locale;
   const crossChain = configTokenList?.basis?.crossChainSupport ?? true;
   const jsonRpcUrlMap = configTokenList?.basis?.rpcMap;
+  const noPowerBy = configTokenList?.basis?.noPowerBy;
   let theme: SwapWidgetProps["theme"] | undefined;
   if (configTokenList?.style && Object.keys(configTokenList.style).length) {
     const fontSizeModify = configTokenList?.basis?.fontSizeModify;
@@ -222,6 +223,7 @@ export default async function Page(props: {
             crossChain={crossChain}
             jsonRpcUrlMap={jsonRpcUrlMap}
             theme={theme}
+            noPowerBy={noPowerBy}
           />
         </div>
       </div>

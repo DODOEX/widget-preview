@@ -17,6 +17,7 @@ function Widget(props: {
   crossChain?: SwapWidgetProps["crossChain"];
   width?: SwapWidgetProps["width"];
   height?: SwapWidgetProps["height"];
+  noPowerBy?: SwapWidgetProps["noPowerBy"];
 }) {
   const { id } = useParams();
   useEffect(() => {

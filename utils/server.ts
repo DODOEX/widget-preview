@@ -52,6 +52,7 @@ interface WidgetConfigBasis {
   fontSizeModify: number;
   backgroundImage?: string;
   themeType?: number;
+  noPowerBy?: boolean;
 }
 interface WidgetConfigColor {
   primary?: string;
