@@ -13,7 +13,7 @@
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@dodoex/widgets": "2.4.10",
+    "@dodoex/widgets": "2.4.11",
     "@mui/material": "^5.12.1",
     "axios": "^1.4.0",
     "bufferutil": "^4.0.7",
