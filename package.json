@@ -12,6 +12,9 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@dodoex/widgets": "2.5.0",
     "@mui/material": "^5.12.1",
