@@ -8,7 +8,7 @@ export interface ConsumerInfo {
 }
 export async function getConsumerInfo(
   projectId?: string,
-  revalidate = 60
+  revalidate = 60,
 ): Promise<ConsumerInfo | null> {
   if (projectId) {
     const res = await fetch(
@@ -17,7 +17,7 @@ export async function getConsumerInfo(
         next: {
           revalidate,
         },
-      }
+      },
     );
     if (res.ok) {
       const data = await res.json();
@@ -104,7 +104,7 @@ export async function getWidgetTokenListConfig(
     apikey: string;
   },
   revalidate = 60,
-  isRetry?: boolean
+  isRetry?: boolean,
 ): Promise<ConfigTokenList | null> {
   const res = await fetch(
     `${CONFIG_CENTER_URL}/user/tokenlist/v2?project=${params.project}&apikey=${params.apikey}`,
@@ -112,7 +112,7 @@ export async function getWidgetTokenListConfig(
       next: {
         revalidate,
       },
-    }
+    },
   );
   if (res.ok) {
     const data = await res.json();
@@ -130,7 +130,7 @@ export async function getWidgetTokenListConfig(
           apikey: newApiKey.key,
         },
         revalidate,
-        true
+        true,
       );
     }
   } else {

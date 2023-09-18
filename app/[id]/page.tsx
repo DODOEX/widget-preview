@@ -37,7 +37,7 @@ export default async function Page(props: {
           project: projectId,
           apikey: consumerInfo.key,
         },
-        revalidate
+        revalidate,
       );
       if (configTokenList) {
         rebateAddress = configTokenList.rebateAddress;
@@ -77,7 +77,7 @@ export default async function Page(props: {
                         selectTokens.some(
                           (address) =>
                             address.toLocaleLowerCase() ===
-                            token.address.toLocaleLowerCase()
+                            token.address.toLocaleLowerCase(),
                         )
                       ) {
                         tokenList.push({
@@ -101,7 +101,7 @@ export default async function Page(props: {
                 }
               });
             }
-          }
+          },
         );
       }
     } else {
