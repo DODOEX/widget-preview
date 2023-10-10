@@ -1,33 +1,46 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
 });
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-
   // 严格模式下 useEffect 会运行两次
   reactStrictMode: false,
 
   experimental: {
     appDir: true,
     typedRoutes: true,
-    esmExternals: 'loose', // required to make Konva & react-konva work
+    esmExternals: "loose", // required to make Konva & react-konva work
   },
 
   async redirects() {
     return [
       {
-        source: '/',
-        destination: 'https://developer.dodoex.io',
+        source: "/",
+        destination: "https://developer.dodoex.io",
         permanent: false,
       },
     ];
   },
 
+  headers: async () => {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-src *",
+          },
+        ],
+      },
+    ];
+  },
+
   webpack: (
-    config,
+    config
     // { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
   ) => {
     // Fixes npm packages that depend on `fs` module, for example: lowdb
@@ -49,7 +62,7 @@ const nextConfig = {
     // https://react-svgr.com/docs/next/#nextjs
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.('.svg'),
+      rule.test?.test?.(".svg")
     );
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
@@ -65,14 +78,14 @@ const nextConfig = {
         resourceQuery: { not: /url/ }, // exclude if *.svg?url
         use: [
           {
-            loader: '@svgr/webpack',
+            loader: "@svgr/webpack",
             options: {
               // https://github.com/svg/svgo#default-preset
               svgoConfig: {
                 plugins: [
-                  'removeTitle',
-                  'removeXMLNS',
-                  'mergePaths',
+                  "removeTitle",
+                  "removeXMLNS",
+                  "mergePaths",
                   // {
                   //   name: 'preset-default',
                   //   params: {
@@ -88,17 +101,17 @@ const nextConfig = {
             },
           },
         ],
-      },
+      }
     );
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
 
     // ----- for @shopify/web-worker
     // Perform customizations to webpack config
-    config.output.globalObject = 'self';
+    config.output.globalObject = "self";
     // ----- for @shopify/web-worker
 
-    config.externals = [...config.externals, { canvas: 'canvas' }]; // required to make Konva & react-konva work
+    config.externals = [...config.externals, { canvas: "canvas" }]; // required to make Konva & react-konva work
 
     // Important: return the modified config
     return config;
