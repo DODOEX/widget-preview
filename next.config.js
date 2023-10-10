@@ -32,7 +32,7 @@ const nextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "frame-src *",
+            value: "frame-src *; frame-ancestors *",
           },
         ],
       },
