@@ -3,8 +3,15 @@
   height: 100vh;
 }
 
+.app.fullScreen {
+  padding: 0;
+}
+
 .content {
   width: calc(100vw - 40px);
+}
+.fullScreen .content {
+  width: 100vw;
 }
 
 @media screen and (min-width: 768px) {
@@ -31,4 +38,12 @@
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0px 6px 12px rgba(26, 26, 27, 0.1);
+}
+.widgetWrapper :global(.dodo-widget-container) {
+  border-radius: 0;
+}
+.fullScreen .widgetWrapper {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
