@@ -10,17 +10,20 @@ import {
 import { goDeveloper } from "utils/url";
 import styles from "./styles.module.css";
 import { strToColorStr } from "utils/color";
+import clsx from "clsx";
 
 export default async function Page(props: {
   params: {
     id: string;
   };
   searchParams?: {
-    "no-cache"?: string;
+    "no-cache"?: "true" | "false";
+    "full-screen"?: "true" | "false";
   };
 }) {
   const { params, searchParams } = props;
   const revalidate = searchParams?.["no-cache"] === "true" ? 0 : 60;
+  const fullScreen = searchParams?.["full-screen"] === "true" ? true : false;
   const projectId = params.id;
   let consumerInfo: ConsumerInfo | null = null;
   let rebateAddress: string | null = null;
@@ -37,7 +40,7 @@ export default async function Page(props: {
           project: projectId,
           apikey: consumerInfo.key,
         },
-        revalidate,
+        revalidate
       );
       if (configTokenList) {
         rebateAddress = configTokenList.rebateAddress;
@@ -77,7 +80,7 @@ export default async function Page(props: {
                         selectTokens.some(
                           (address) =>
                             address.toLocaleLowerCase() ===
-                            token.address.toLocaleLowerCase(),
+                            token.address.toLocaleLowerCase()
                         )
                       ) {
                         tokenList.push({
@@ -101,15 +104,15 @@ export default async function Page(props: {
                 }
               });
             }
-          },
+          }
         );
       }
     } else {
       goDeveloper();
     }
   }
-  const width = configTokenList?.basis?.width ?? "100%";
-  const height = configTokenList?.basis?.height ?? 500;
+  const width = fullScreen ? "100vw" : configTokenList?.basis?.width ?? "100%";
+  const height = fullScreen ? "100vh" : configTokenList?.basis?.height ?? 494;
   const locale = configTokenList?.basis?.locale;
   const crossChain = configTokenList?.basis?.crossChainSupport ?? true;
   const jsonRpcUrlMap = configTokenList?.basis?.rpcMap;
@@ -196,7 +199,7 @@ export default async function Page(props: {
 
   return (
     <div
-      className={styles.app}
+      className={clsx(styles.app, fullScreen ? styles.fullScreen : "")}
       style={
         backgroundImage
           ? {
@@ -207,9 +210,13 @@ export default async function Page(props: {
       }
     >
       <div className={styles.content}>
-        <h5 className={styles.projectName}>
-          {configTokenList?.basis?.name ?? projectId}
-        </h5>
+        {fullScreen ? (
+          ""
+        ) : (
+          <h5 className={styles.projectName}>
+            {configTokenList?.basis?.name ?? projectId}
+          </h5>
+        )}
         <div className={styles.widgetWrapper}>
           <Widget
             tokenList={tokenList}
