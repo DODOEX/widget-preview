@@ -80,10 +80,10 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@dodoex/widgets@2.5.3":
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/@dodoex/widgets/-/widgets-2.5.3.tgz#0c211d65bbd042a4d26f28f867aac591ac8e7387"
-  integrity sha512-Tds7vHzrSLG9xrbxyBYN6N+ppQcVPUeb+K/FLL9Ua6DKeLWpaZOXf9DpzdHJgYj/Bh+WH+eR+wHNE75AR63FQg==
+"@dodoex/widgets@2.5.4":
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@dodoex/widgets/-/widgets-2.5.4.tgz#12f20e499eab172fd0dd7d34a0f6b2e6990ed0e3"
+  integrity sha512-ck7TTMGs7cwXEq4ZRtUm4qX3aqlgsZUVU1vgc4HUhD4bbgJZLqLoYizL4J6B/h+uOHVQZihbQDhBm3GgdsuliQ==
   dependencies:
     "@babel/runtime" "^7.17.0"
     "@dodoex/components" "^2.0.1"
