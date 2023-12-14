@@ -4,6 +4,7 @@ import { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import { CssBaseline } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import Cookie from "js-cookie";
 
 function Widget(props: {
   tokenList: TokenList;
@@ -21,7 +22,18 @@ function Widget(props: {
 }) {
   const { id } = useParams();
   useEffect(() => {
-    fetch(`/api/set-token?id=${id}`);
+    if (typeof id === "string") {
+      Cookie.set("project", id);
+    }
+    const fetchToken = async () => {
+      const res = await fetch(`/api/set-token?id=${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        const token = data.data;
+        Cookie.set("token", token);
+      }
+    };
+    fetchToken();
   }, []);
   return (
     <>

@@ -19,6 +19,7 @@
     "bufferutil": "^4.0.7",
     "clsx": "^2.0.0",
     "crypto-js": "^4.1.1",
+    "js-cookie": "^3.0.5",
     "lokijs": "^1.5.12",
     "next": "^13.4.9",
     "pino-pretty": "^10.0.1",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^13.3.1",
     "@types/crypto-js": "^4.1.1",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/react-router-dom": "^5.3.3",
