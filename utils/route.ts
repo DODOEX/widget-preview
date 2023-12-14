@@ -1,17 +1,29 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "utils/crypto";
+import { getConsumerInfo } from "./server";
 
 export async function getRoute(url: string, req: NextRequest) {
   const search = new URL(req.url ?? "").searchParams;
   try {
     const encryptToken = await req.cookies.get("token")?.value;
-    if (!encryptToken) {
+    let token = "";
+    if (encryptToken) {
+      token = decrypt(encryptToken);
+    } else {
+      const referer = req.headers.get("Referer");
+      if (referer) {
+        const refererUrl = new URL(referer);
+        const project = refererUrl.pathname.replace(/\//, "");
+        const consumerData = await getConsumerInfo(project);
+        token = consumerData?.key ?? "";
+      }
+    }
+    if (!token) {
       return new NextResponse("token is not valid.", {
         status: 401,
       });
     }
-    const token = decrypt(encryptToken);
     const headers: AxiosRequestConfig["headers"] = {
       "Content-Type": "application/json",
       "user-agent":
@@ -47,13 +59,24 @@ export async function postRoute(
   } = {}
 ) {
   try {
+    let token = "";
     const encryptToken = await req.cookies.get("token")?.value;
-    if (!encryptToken) {
+    if (encryptToken) {
+      token = decrypt(encryptToken);
+    } else {
+      const referer = req.headers.get("Referer");
+      if (referer) {
+        const refererUrl = new URL(referer);
+        const project = refererUrl.pathname.replace(/\//, "");
+        const consumerData = await getConsumerInfo(project);
+        token = consumerData?.key ?? "";
+      }
+    }
+    if (!token) {
       return new NextResponse("token is not valid.", {
         status: 401,
       });
     }
-    const token = await decrypt(encryptToken);
     const params = await req.json();
     const headers: AxiosRequestConfig["headers"] = {
       "Content-Type": "application/json",

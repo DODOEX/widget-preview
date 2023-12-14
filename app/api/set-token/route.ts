@@ -15,7 +15,6 @@ export async function GET(req: NextRequest) {
     const token = encrypt(data.key);
     const response = NextResponse.json({
       status: 200,
-      data: token,
     });
     // support for iframe
     // @ts-ignore
