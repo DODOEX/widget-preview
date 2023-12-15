@@ -37,6 +37,7 @@ function Widget(props: {
           bridgeEncode: "/api/bridge/encode",
           bridgeCreateRoute: "/api/bridge/order/create",
         }}
+        apikey={typeof id === "string" ? id : undefined}
         {...props}
       />
     </>

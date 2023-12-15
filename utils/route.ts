@@ -15,6 +15,15 @@ export async function getRoute(url: string, req: NextRequest) {
       if (referer) {
         const refererUrl = new URL(referer);
         const project = refererUrl.pathname.replace(/\//, "");
+        if (project) {
+          const consumerData = await getConsumerInfo(project);
+          token = consumerData?.key ?? "";
+        }
+      }
+    }
+    if (!token) {
+      const project = search.get("apikey");
+      if (project) {
         const consumerData = await getConsumerInfo(project);
         token = consumerData?.key ?? "";
       }
@@ -58,6 +67,8 @@ export async function postRoute(
     needHeaderToken?: boolean;
   } = {}
 ) {
+  const search = new URL(req.url ?? "").searchParams;
+  const params = await req.json();
   try {
     let token = "";
     const encryptToken = await req.cookies.get("token")?.value;
@@ -72,12 +83,29 @@ export async function postRoute(
         token = consumerData?.key ?? "";
       }
     }
+    // from search
+    if (!token) {
+      const project = search.get("apikey");
+      if (project) {
+        const consumerData = await getConsumerInfo(project);
+        token = consumerData?.key ?? "";
+        search.set("apikey", token);
+      }
+    }
+    // from params
+    if (!token) {
+      const project = params.apikey;
+      if (project) {
+        const consumerData = await getConsumerInfo(project);
+        token = consumerData?.key ?? "";
+        params.apikey = token;
+      }
+    }
     if (!token) {
       return new NextResponse("token is not valid.", {
         status: 401,
       });
     }
-    const params = await req.json();
     const headers: AxiosRequestConfig["headers"] = {
       "Content-Type": "application/json",
       "user-agent":
@@ -86,13 +114,16 @@ export async function postRoute(
     if (needHeaderToken) {
       headers.apikey = token;
     }
-    let urlResult = url;
-    if (needQueryToken) {
-      urlResult += `?apikey=${token}`;
+    if (needQueryToken && !search.get("apikey")) {
+      search.set("apikey", token);
     }
-    const response = await axios.post(urlResult, params, {
-      headers,
-    });
+    const response = await axios.post(
+      `${url}${search.size ? `?${search.toString()}` : ""}`,
+      params,
+      {
+        headers,
+      }
+    );
     if (response.status !== 200) {
       return NextResponse.json({
         status: response.status,
