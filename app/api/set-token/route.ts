@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
         status: 50002,
       });
     }
+    const token = encrypt(data.key);
     const response = NextResponse.json({
       status: 200,
     });
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest) {
     // @ts-ignore
     response.cookies.set({
       name: "token",
-      value: encrypt(data.key),
+      value: token,
       sameSite: "None",
       secure: true,
     });
