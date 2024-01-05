@@ -117,8 +117,9 @@ export async function postRoute(
     if (needQueryToken && !search.get("apikey")) {
       search.set("apikey", token);
     }
+    const searchText = search.toString();
     const response = await axios.post(
-      `${url}${search.size ? `?${search.toString()}` : ""}`,
+      `${url}${searchText ? `?${searchText}` : ""}`,
       params,
       {
         headers,
