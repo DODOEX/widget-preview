@@ -114,7 +114,7 @@ export async function postRoute(
     if (needHeaderToken) {
       headers.apikey = token;
     }
-    if (needQueryToken && !search.get("apikey")) {
+    if (needQueryToken) {
       search.set("apikey", token);
     }
     const searchText = search.toString();
