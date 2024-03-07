@@ -8,7 +8,7 @@
     "start": "next dev",
     "build": "next build",
     "preview": "next start",
-    "lint": "next lint",
+    "lint": "next lint ",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
