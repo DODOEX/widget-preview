@@ -2,8 +2,6 @@
 import { SwapWidget, SwapWidgetProps } from "@dodoex/widgets";
 import { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import { CssBaseline } from "@mui/material";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
 
 function Widget(props: {
   tokenList: TokenList;
@@ -18,28 +16,12 @@ function Widget(props: {
   width?: SwapWidgetProps["width"];
   height?: SwapWidgetProps["height"];
   noPowerBy?: SwapWidgetProps["noPowerBy"];
+  apikey?: SwapWidgetProps["apikey"];
 }) {
-  const { id } = useParams();
-  useEffect(() => {
-    fetch(`/api/set-token?id=${id}`);
-  }, []);
   return (
     <>
       <CssBaseline />
-      <SwapWidget
-        colorMode="light"
-        width="100%"
-        height="100%"
-        apiServices={{
-          routePrice: "/api/route-service",
-          fiatPrice: "/api/price-api",
-          bridgeRoutePrice: "/api/bridge/routes",
-          bridgeEncode: "/api/bridge/encode",
-          bridgeCreateRoute: "/api/bridge/order/create",
-        }}
-        apikey={typeof id === "string" ? id : undefined}
-        {...props}
-      />
+      <SwapWidget colorMode="light" width="100%" height="100%" {...props} />
     </>
   );
 }

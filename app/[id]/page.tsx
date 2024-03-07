@@ -31,14 +31,16 @@ export default async function Page(props: {
   let swapSlippage: number | null = null;
   let bridgeSlippage: number | null = null;
   let configTokenList: ConfigTokenList | null = null;
+  let apiKey = "";
   const tokenList: TokenList = [];
   if (projectId) {
     consumerInfo = await getConsumerInfo(projectId, revalidate);
     if (consumerInfo?.key) {
+      apiKey = consumerInfo.key;
       configTokenList = await getWidgetTokenListConfig(
         {
           project: projectId,
-          apikey: consumerInfo.key,
+          apikey: apiKey,
         },
         revalidate
       );
@@ -231,6 +233,7 @@ export default async function Page(props: {
             jsonRpcUrlMap={jsonRpcUrlMap}
             theme={theme}
             noPowerBy={noPowerBy}
+            apikey={apiKey}
           />
         </div>
       </div>
