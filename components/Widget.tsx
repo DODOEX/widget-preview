@@ -3,7 +3,7 @@ import { SwapWidget, SwapWidgetProps } from "@dodoex/widgets";
 import { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import { CssBaseline } from "@mui/material";
 
-function Widget(props: {
+export interface WidgetProps {
   tokenList: TokenList;
   rebateAddress?: string;
   rebateRatio?: number;
@@ -17,7 +17,8 @@ function Widget(props: {
   height?: SwapWidgetProps["height"];
   noPowerBy?: SwapWidgetProps["noPowerBy"];
   apikey?: SwapWidgetProps["apikey"];
-}) {
+}
+function Widget(props: WidgetProps) {
   return (
     <>
       <CssBaseline />

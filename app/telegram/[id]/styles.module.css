@@ -1,0 +1,49 @@
+.app {
+  padding: 0 20px;
+  height: 100vh;
+}
+
+.app.fullScreen {
+  padding: 0;
+}
+
+.content {
+  width: calc(100vw - 40px);
+}
+.fullScreen .content {
+  width: 100vw;
+}
+
+@media screen and (min-width: 768px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+  .content {
+    width: 380px;
+  }
+}
+
+.projectName {
+  font-weight: 600;
+  font-size: 24px;
+  margin: 20px 0 40px 0;
+}
+
+.widgetWrapper {
+  border: solid 1px;
+  border-color: rgba(69, 72, 81, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0px 6px 12px rgba(26, 26, 27, 0.1);
+}
+.widgetWrapper :global(.dodo-widget-container) {
+  border-radius: 0;
+}
+.fullScreen .widgetWrapper {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
