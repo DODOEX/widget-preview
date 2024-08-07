@@ -9,6 +9,10 @@ export async function createProvider() {
   const tonConnectUI = new TonConnectUI({
     connector,
   });
+  window.test = {
+    connector,
+    tonConnectUI,
+  };
   connector.restoreConnection();
 
   class TonProvider extends StaticJsonRpcProvider {
@@ -40,5 +44,6 @@ export async function createProvider() {
   }
 
   const provider = new TonProvider();
+  window.ethereum = provider;
   return provider;
 }
