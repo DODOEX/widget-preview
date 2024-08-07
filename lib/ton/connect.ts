@@ -9,6 +9,7 @@ export async function createProvider() {
   const tonConnectUI = new TonConnectUI({
     connector,
   });
+  // @ts-ignore
   window.test = {
     connector,
     tonConnectUI,
@@ -44,6 +45,7 @@ export async function createProvider() {
   }
 
   const provider = new TonProvider();
+  // @ts-ignore
   window.ethereum = provider;
   return provider;
 }
