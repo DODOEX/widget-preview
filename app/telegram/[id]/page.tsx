@@ -11,7 +11,6 @@ import { goDeveloper } from "utils/url";
 import styles from "./styles.module.css";
 import { strToColorStr } from "utils/color";
 import clsx from "clsx";
-import TelegramWidget from "components/TelegramWidget";
 
 export default async function Page(props: {
   params: {
@@ -111,7 +110,7 @@ export default async function Page(props: {
         );
       }
     } else {
-      goDeveloper();
+      // goDeveloper();
     }
   }
   const width = fullScreen ? "100vw" : configTokenList?.basis?.width ?? "100%";
@@ -221,8 +220,8 @@ export default async function Page(props: {
           </h5>
         )}
         <div className={styles.widgetWrapper}>
-          <TelegramWidget
-            tokenList={tokenList}
+          <Widget
+            // tokenList={tokenList}
             rebateAddress={rebateAddress ?? undefined}
             rebateRatio={rebateRatio ?? undefined}
             swapSlippage={swapSlippage ?? undefined}
@@ -235,6 +234,7 @@ export default async function Page(props: {
             theme={theme}
             noPowerBy={noPowerBy}
             apikey={apiKey}
+            tonConnect
           />
         </div>
       </div>
