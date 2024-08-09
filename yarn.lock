@@ -80,10 +80,10 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@dodoex/widgets@2.6.12-beta.2":
-  version "2.6.12-beta.2"
-  resolved "https://registry.yarnpkg.com/@dodoex/widgets/-/widgets-2.6.12-beta.2.tgz#69ada9964fe64f16c5c0ff59db1bfddc8555ba44"
-  integrity sha512-4PKC9+Gd7ivmvx9FX5SqcEgSSSav+XTM6QRsMZDXbu07NwTqfc9asjArMm85273ZGR6yH13XrzBmMDIP57t3Xw==
+"@dodoex/widgets@2.6.12-beta.3":
+  version "2.6.12-beta.3"
+  resolved "https://registry.yarnpkg.com/@dodoex/widgets/-/widgets-2.6.12-beta.3.tgz#ae49587310eeebbe5db3d3d9984ef0d230da7138"
+  integrity sha512-nN/L77hjD51JhZCg/dyHtDaHI0wUK8UlaJBvrR2Qw+Zhs84mF1hTrA2NiTO1n77Z3rfPIcZfqXRKcUfljZvI0A==
   dependencies:
     "@babel/runtime" "^7.17.0"
     "@dodoex/components" "^2.0.1"
@@ -99,6 +99,7 @@
     "@reduxjs/toolkit" "^1.6.1"
     "@semantic-release/changelog" "^6.0.1"
     "@semantic-release/git" "^10.0.1"
+    "@tanstack/react-query" "^5.51.23"
     "@tonconnect/ui" "^2.0.6"
     "@twa-dev/sdk" "^7.8.0"
     "@web3-react/core" "8.2.0"
@@ -1466,6 +1467,18 @@
   integrity sha512-KsDmaYsv4+Rnla+fSdZMIMonzuvXlDRPaFeIa7Je0dnwY4iFry5eiw27GQ6276+tYkVRgUyfS/mEcL48efSivA==
   dependencies:
     react-transition-state "^2.1.1"
+
+"@tanstack/query-core@5.51.21":
+  version "5.51.21"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.51.21.tgz#a510469c6c30d3de2a8b8798e340169a4b0fd08f"
+  integrity sha512-POQxm42IUp6n89kKWF4IZi18v3fxQWFRolvBA6phNVmA8psdfB1MvDnGacCJdS+EOX12w/CyHM62z//rHmYmvw==
+
+"@tanstack/react-query@^5.51.23":
+  version "5.51.23"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.51.23.tgz#83c223f4cb6054b206de8856b73ca7e41a63ba1f"
+  integrity sha512-CfJCfX45nnVIZjQBRYYtvVMIsGgWLKLYC4xcUiYEey671n1alvTZoCBaU9B85O8mF/tx9LPyrI04A6Bs2THv4A==
+  dependencies:
+    "@tanstack/query-core" "5.51.21"
 
 "@tonconnect/isomorphic-eventsource@^0.0.2":
   version "0.0.2"
