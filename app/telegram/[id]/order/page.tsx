@@ -11,7 +11,7 @@ import { goDeveloper } from "utils/url";
 import styles from "./styles.module.css";
 import { strToColorStr } from "utils/color";
 import clsx from "clsx";
-import { headers } from "next/headers";
+import OrderWidget from "components/OrderWidget";
 
 export default async function Page(props: {
   params: {
@@ -20,11 +20,19 @@ export default async function Page(props: {
   searchParams?: {
     "no-cache"?: "true" | "false";
     "full-screen"?: "true" | "false";
+    tonAccount: string;
+    fromTokenAddress: string;
+    fromChainId: string;
+    toTokenAddress: string;
+    toChainId: string;
+    fromAmt: string;
+    slippage?: string;
   };
 }) {
-  const headersList = headers();
-  const hostname = headersList.get("x-forwarded-host");
   const { params, searchParams } = props;
+  if (!searchParams) {
+    throw new Error("Invalid search parameters");
+  }
   const revalidate = searchParams?.["no-cache"] === "true" ? 0 : 60;
   const fullScreen = searchParams?.["full-screen"] === "true" ? true : false;
   const projectId = params.id;
@@ -47,71 +55,6 @@ export default async function Page(props: {
         },
         revalidate
       );
-      if (configTokenList) {
-        rebateAddress = configTokenList.rebateAddress;
-        rebateRatio = configTokenList.rebateRatio;
-        swapSlippage = configTokenList.swapSlippage;
-        bridgeSlippage = configTokenList.crossChainSlippage;
-        let isAllChainFrom = true;
-        let isAllChainTo = true;
-        configTokenList.chains.forEach((item) => {
-          if (item.fromTokens) {
-            isAllChainFrom = false;
-          }
-          if (item.toTokens) {
-            isAllChainTo = false;
-          }
-        });
-        configTokenList.chains.forEach(
-          ({ chainId: chainIdStr, fromTokens, toTokens, tokens }) => {
-            if (tokens?.length) {
-              const chainId = Number(chainIdStr);
-              [
-                {
-                  isAllChain: isAllChainFrom,
-                  selectTokens: fromTokens,
-                  side: "from" as "from",
-                },
-                {
-                  isAllChain: isAllChainTo,
-                  selectTokens: toTokens,
-                  side: "to" as "to",
-                },
-              ].forEach(({ isAllChain, selectTokens, side }) => {
-                if (isAllChain || selectTokens) {
-                  if (selectTokens?.length) {
-                    tokens.forEach((token) => {
-                      if (
-                        selectTokens.some(
-                          (address) =>
-                            address.toLocaleLowerCase() ===
-                            token.address.toLocaleLowerCase()
-                        )
-                      ) {
-                        tokenList.push({
-                          logoURI: token.logoImg,
-                          ...token,
-                          chainId: token.chainId ?? chainId,
-                          side,
-                        });
-                      }
-                    });
-                  } else {
-                    tokens.forEach((token) => {
-                      tokenList.push({
-                        logoURI: token.logoImg,
-                        ...token,
-                        chainId: token.chainId ?? chainId,
-                        side,
-                      });
-                    });
-                  }
-                }
-              });
-            }
-          }
-        );
-      }
     } else {
       // goDeveloper();
     }
@@ -223,7 +166,7 @@ export default async function Page(props: {
           </h5>
         )}
         <div className={styles.widgetWrapper}>
-          <Widget
+          <OrderWidget
             // tokenList={tokenList}
             rebateAddress={rebateAddress ?? undefined}
             rebateRatio={rebateRatio ?? undefined}
@@ -238,9 +181,15 @@ export default async function Page(props: {
             noPowerBy={noPowerBy}
             apikey={apiKey}
             tonConnect
-            bridgeToTonUrl={`http${
-              hostname?.indexOf("localhost") === 0 ? "" : "s"
-            }://${hostname}/telegram/${projectId}/order`}
+            orderParams={{
+              tonAccount: searchParams.tonAccount,
+              fromTokenAddress: searchParams.fromTokenAddress,
+              fromChainId: parseInt(searchParams.fromChainId),
+              toTokenAddress: searchParams.toTokenAddress,
+              toChainId: parseInt(searchParams.toChainId),
+              fromAmt: searchParams.fromAmt,
+              redirectLink: "https://t.me/gwegwehgww35223BOT/bridge",
+            }}
           />
         </div>
       </div>

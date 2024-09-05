@@ -13,7 +13,7 @@
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@dodoex/widgets": "2.6.12-beta.6",
+    "@dodoex/widgets": "2.6.12-beta.10",
     "@ethersproject/providers": "^5.7.2",
     "@mui/material": "^5.12.1",
     "@orbs-network/ton-access": "^2.3.3",

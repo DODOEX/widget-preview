@@ -1,5 +1,9 @@
 "use client";
-import { SwapWidget, SwapWidgetProps } from "@dodoex/widgets";
+import {
+  Widget,
+  SwapWidgetProps,
+  BridgeTonSummaryDialog,
+} from "@dodoex/widgets";
 import { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import { CssBaseline } from "@mui/material";
 
@@ -18,17 +22,17 @@ export interface WidgetProps {
   noPowerBy?: SwapWidgetProps["noPowerBy"];
   apikey?: SwapWidgetProps["apikey"];
   tonConnect?: SwapWidgetProps["tonConnect"];
-
-  bridgeToTonUrl?: string;
-  showBridgeToTonUrl?: boolean;
+  orderParams: Parameters<typeof BridgeTonSummaryDialog>[0];
 }
-function Widget({ showBridgeToTonUrl, ...props }: WidgetProps) {
+function OrderWidget({ orderParams, ...props }: WidgetProps) {
   return (
     <>
       <CssBaseline />
-      <SwapWidget colorMode="light" width="100%" height="100%" {...props} />
+      <Widget width="100%" height="100%" {...props}>
+        <BridgeTonSummaryDialog {...orderParams} />
+      </Widget>
     </>
   );
 }
 
-export default Widget;
+export default OrderWidget;
