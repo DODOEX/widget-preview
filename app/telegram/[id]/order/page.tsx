@@ -180,6 +180,7 @@ export default async function Page(props: {
             theme={theme}
             noPowerBy={noPowerBy}
             apikey={apiKey}
+            defaultChainId={parseInt(searchParams.fromChainId)}
             tonConnect
             orderParams={{
               tonAccount: searchParams.tonAccount,

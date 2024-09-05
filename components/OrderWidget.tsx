@@ -22,6 +22,7 @@ export interface WidgetProps {
   noPowerBy?: SwapWidgetProps["noPowerBy"];
   apikey?: SwapWidgetProps["apikey"];
   tonConnect?: SwapWidgetProps["tonConnect"];
+  defaultChainId?: SwapWidgetProps["defaultChainId"];
   orderParams: Parameters<typeof BridgeTonSummaryDialog>[0];
 }
 function OrderWidget({ orderParams, ...props }: WidgetProps) {

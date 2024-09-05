@@ -19,10 +19,9 @@ export interface WidgetProps {
   apikey?: SwapWidgetProps["apikey"];
   tonConnect?: SwapWidgetProps["tonConnect"];
 
-  bridgeToTonUrl?: string;
-  showBridgeToTonUrl?: boolean;
+  bridgeToTonUrl?: SwapWidgetProps["bridgeToTonUrl"];
 }
-function Widget({ showBridgeToTonUrl, ...props }: WidgetProps) {
+function Widget(props: WidgetProps) {
   return (
     <>
       <CssBaseline />
