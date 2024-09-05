@@ -240,7 +240,7 @@ export default async function Page(props: {
             tonConnect
             bridgeToTonUrl={`http${
               hostname?.indexOf("localhost") === 0 ? "" : "s"
-            }://${hostname}/telegram/${projectId}/order`}
+            }://${hostname}/telegram/${projectId}/order?&full-screen=true`}
           />
         </div>
       </div>
