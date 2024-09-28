@@ -1,6 +1,7 @@
 import { SwapWidgetProps } from "@dodoex/widgets";
 import type { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import Widget from "components/Widget";
+import BigNumber from "bignumber.js";
 import {
   ConfigTokenList,
   ConsumerInfo,
@@ -44,7 +45,16 @@ export default async function Page(props: {
       );
       if (configTokenList) {
         rebateAddress = configTokenList.rebateAddress;
-        rebateRatio = configTokenList.rebateRatio;
+        if (configTokenList.rebateRatio) {
+          if (configTokenList.rebateRatio > 10000) {
+            rebateRatio = configTokenList.rebateRatio;
+          } else {
+            rebateRatio = new BigNumber(configTokenList.rebateRatio)
+              .div(100)
+              .times(10 ** 18)
+              .toNumber();
+          }
+        }
         swapSlippage = configTokenList.swapSlippage;
         bridgeSlippage = configTokenList.crossChainSlippage;
         let isAllChainFrom = true;
@@ -220,8 +230,8 @@ export default async function Page(props: {
         <div className={styles.widgetWrapper}>
           <Widget
             tokenList={tokenList}
-            rebateAddress={rebateAddress ?? undefined}
-            rebateRatio={rebateRatio ?? undefined}
+            rebateTo={rebateAddress ?? undefined}
+            feeRate={rebateRatio ?? undefined}
             swapSlippage={swapSlippage ?? undefined}
             bridgeSlippage={bridgeSlippage ?? undefined}
             width={width}
