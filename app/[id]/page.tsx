@@ -220,8 +220,8 @@ export default async function Page(props: {
         <div className={styles.widgetWrapper}>
           <Widget
             tokenList={tokenList}
-            rebateAddress={rebateAddress ?? undefined}
-            rebateRatio={rebateRatio ?? undefined}
+            rebateTo={rebateAddress ?? undefined}
+            feeRate={rebateRatio ?? undefined}
             swapSlippage={swapSlippage ?? undefined}
             bridgeSlippage={bridgeSlippage ?? undefined}
             width={width}
