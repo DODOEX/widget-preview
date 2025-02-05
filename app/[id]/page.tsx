@@ -1,5 +1,4 @@
 import { SwapWidgetProps } from "@dodoex/widgets";
-import type { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import Widget from "components/Widget";
 import {
   ConfigTokenList,
@@ -31,7 +30,7 @@ export default async function Page(props: {
   let swapSlippage: number | null = null;
   let bridgeSlippage: number | null = null;
   let configTokenList: ConfigTokenList | null = null;
-  const tokenList: TokenList = [];
+  const tokenList: SwapWidgetProps["tokenList"] = [];
   if (projectId) {
     consumerInfo = await getConsumerInfo(projectId, revalidate);
     if (consumerInfo?.key) {
