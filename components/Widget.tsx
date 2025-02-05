@@ -3,6 +3,7 @@ import { GraphQLRequests } from "@dodoex/api";
 import { SwapWidget, SwapWidgetProps, WidgetProps } from "@dodoex/widgets";
 import { CssBaseline } from "@mui/material";
 import React from "react";
+import { API_DOMAIN } from "utils/config";
 
 function Widget(props: {
   tokenList: WidgetProps["tokenList"];
