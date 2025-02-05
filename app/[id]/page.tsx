@@ -1,5 +1,4 @@
 import { SwapWidgetProps } from "@dodoex/widgets";
-import type { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
 import Widget from "components/Widget";
 import BigNumber from "bignumber.js";
 import {
@@ -33,7 +32,7 @@ export default async function Page(props: {
   let bridgeSlippage: number | null = null;
   let configTokenList: ConfigTokenList | null = null;
   let apiKey = "";
-  const tokenList: TokenList = [];
+  const tokenList: SwapWidgetProps["tokenList"] = [];
   if (projectId) {
     consumerInfo = await getConsumerInfo(projectId, revalidate);
     if (consumerInfo?.key) {
