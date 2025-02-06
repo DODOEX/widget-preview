@@ -1,10 +1,12 @@
 "use client";
-import { SwapWidget, SwapWidgetProps } from "@dodoex/widgets";
-import { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
+import { GraphQLRequests } from "@dodoex/api";
+import { SwapWidget, SwapWidgetProps, WidgetProps } from "@dodoex/widgets";
 import { CssBaseline } from "@mui/material";
+import React from "react";
+import { API_DOMAIN } from "utils/config";
 
 function Widget(props: {
-  tokenList: TokenList;
+  tokenList: WidgetProps["tokenList"];
   rebateTo?: SwapWidgetProps["rebateTo"];
   feeRate?: SwapWidgetProps["feeRate"];
   swapSlippage?: SwapWidgetProps["swapSlippage"];
@@ -18,10 +20,29 @@ function Widget(props: {
   noPowerBy?: SwapWidgetProps["noPowerBy"];
   apikey?: SwapWidgetProps["apikey"];
 }) {
+  const graphQLRequests = React.useMemo(() => {
+    return new GraphQLRequests({
+      url: `https://api.${API_DOMAIN}/widget-graphql`,
+      getHeaders: props.apikey
+        ? () => {
+            return {
+              apikey: props.apikey ?? "",
+            };
+          }
+        : undefined,
+    });
+  }, [props.apikey]);
+
   return (
     <>
       <CssBaseline />
-      <SwapWidget colorMode="light" width="100%" height="100%" {...props} />
+      <SwapWidget
+        colorMode="light"
+        width="100%"
+        height="100%"
+        graphQLRequests={graphQLRequests}
+        {...props}
+      />
     </>
   );
 }
