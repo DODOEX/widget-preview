@@ -1,12 +1,13 @@
 "use client";
-import { SwapWidget, SwapWidgetProps } from "@dodoex/widgets";
-import { TokenList } from "@dodoex/widgets/dist/src/hooks/Token/type";
+import { GraphQLRequests } from "@dodoex/api";
+import { SwapWidget, SwapWidgetProps, WidgetProps } from "@dodoex/widgets";
 import { CssBaseline } from "@mui/material";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { API_DOMAIN } from "utils/config";
 
 function Widget(props: {
-  tokenList: TokenList;
+  tokenList: WidgetProps["tokenList"];
   rebateTo?: SwapWidgetProps["rebateTo"];
   feeRate?: SwapWidgetProps["feeRate"];
   swapSlippage?: SwapWidgetProps["swapSlippage"];
@@ -20,6 +21,20 @@ function Widget(props: {
   noPowerBy?: SwapWidgetProps["noPowerBy"];
 }) {
   const { id } = useParams();
+  const graphQLRequests = useMemo(() => {
+    return new GraphQLRequests({
+      url: `https://api.${API_DOMAIN}/widget-graphql`,
+      getHeaders:
+        typeof id === "string"
+          ? () => {
+              return {
+                apikey: id,
+              };
+            }
+          : undefined,
+    });
+  }, [id]);
+
   useEffect(() => {
     fetch(`/api/set-token?id=${id}`);
   }, []);
@@ -38,6 +53,7 @@ function Widget(props: {
           bridgeCreateRoute: "/api/bridge/order/create",
         }}
         apikey={typeof id === "string" ? id : undefined}
+        graphQLRequests={graphQLRequests}
         {...props}
       />
     </>
