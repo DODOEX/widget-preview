@@ -8,10 +8,10 @@ import { API_DOMAIN } from "utils/config";
 
 function Widget(props: {
   tokenList: WidgetProps["tokenList"];
-  rebateAddress?: string;
-  rebateRatio?: number;
-  swapSlippage?: number;
-  bridgeSlippage?: number;
+  rebateTo?: SwapWidgetProps["rebateTo"];
+  feeRate?: SwapWidgetProps["feeRate"];
+  swapSlippage?: SwapWidgetProps["swapSlippage"];
+  bridgeSlippage?: SwapWidgetProps["bridgeSlippage"];
   theme?: SwapWidgetProps["theme"];
   jsonRpcUrlMap?: SwapWidgetProps["jsonRpcUrlMap"];
   locale?: SwapWidgetProps["locale"];
